@@ -108,7 +108,7 @@ function editText() {
     var title=question.getElementsByClassName("title_area");
     var option=question.getElementsByClassName("li_area");
     var lis=question.getElementsByTagName("li");
-    var bottom=document.querySelector(".bottom_area");
+    /*var bottom=document.querySelector(".bottom_area");
     bottom.style.width="500px";
     bottom.style.lineHeight="30px";
     bottom.style.textAlign="center";
@@ -116,7 +116,7 @@ function editText() {
     bottom.style.top="50%";
     bottom.style.left="50%";
     bottom.style.marginLeft="-250px";
-    bottom.style.marginTop="-"+bottom.offsetHeight/2+"px";
+    bottom.style.marginTop="-"+bottom.offsetHeight/2+"px";*/
     for(var i=0;i<title.length;i++){
         title[i].style.lineHeight="36px";
         title[i].style.width="300px";
