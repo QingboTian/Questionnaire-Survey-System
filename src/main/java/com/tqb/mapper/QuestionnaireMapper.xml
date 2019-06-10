@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqb.mapper.QuestionnaireMapper" >
+  <resultMap id="BaseResultMap" type="com.tqb.pojo.Questionnaire" >
+    <id column="q_id" property="qId" jdbcType="VARCHAR" />
+    <result column="q_name" property="qName" jdbcType="VARCHAR" />
+    <result column="q_createDate" property="qCreatedate" jdbcType="VARCHAR" />
+    <result column="q_state" property="qState" jdbcType="BIT" />
+    <result column="q_count" property="qCount" jdbcType="INTEGER" />
+    <result column="q_remark" property="qRemark" jdbcType="VARCHAR" />
+    <result column="q_time" property="qTime" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    q_id, q_name, q_createDate, q_state, q_count, q_remark, q_time, u_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tqb.pojo.QuestionnaireExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from questionnaire
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from questionnaire
+    where q_id = #{qId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from questionnaire
+    where q_id = #{qId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tqb.pojo.QuestionnaireExample" >
+    delete from questionnaire
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tqb.pojo.Questionnaire" >
+    insert into questionnaire (q_id, q_name, q_createDate, 
+      q_state, q_count, q_remark, 
+      q_time, u_id)
+    values (#{qId,jdbcType=VARCHAR}, #{qName,jdbcType=VARCHAR}, #{qCreatedate,jdbcType=VARCHAR}, 
+      #{qState,jdbcType=BIT}, #{qCount,jdbcType=INTEGER}, #{qRemark,jdbcType=VARCHAR}, 
+      #{qTime,jdbcType=INTEGER}, #{uId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqb.pojo.Questionnaire" >
+    insert into questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qId != null" >
+        q_id,
+      </if>
+      <if test="qName != null" >
+        q_name,
+      </if>
+      <if test="qCreatedate != null" >
+        q_createDate,
+      </if>
+      <if test="qState != null" >
+        q_state,
+      </if>
+      <if test="qCount != null" >
+        q_count,
+      </if>
+      <if test="qRemark != null" >
+        q_remark,
+      </if>
+      <if test="qTime != null" >
+        q_time,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qId != null" >
+        #{qId,jdbcType=VARCHAR},
+      </if>
+      <if test="qName != null" >
+        #{qName,jdbcType=VARCHAR},
+      </if>
+      <if test="qCreatedate != null" >
+        #{qCreatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="qState != null" >
+        #{qState,jdbcType=BIT},
+      </if>
+      <if test="qCount != null" >
+        #{qCount,jdbcType=INTEGER},
+      </if>
+      <if test="qRemark != null" >
+        #{qRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="qTime != null" >
+        #{qTime,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tqb.pojo.QuestionnaireExample" resultType="java.lang.Integer" >
+    select count(*) from questionnaire
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update questionnaire
+    <set >
+      <if test="record.qId != null" >
+        q_id = #{record.qId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qName != null" >
+        q_name = #{record.qName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qCreatedate != null" >
+        q_createDate = #{record.qCreatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qState != null" >
+        q_state = #{record.qState,jdbcType=BIT},
+      </if>
+      <if test="record.qCount != null" >
+        q_count = #{record.qCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.qRemark != null" >
+        q_remark = #{record.qRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qTime != null" >
+        q_time = #{record.qTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.uId != null" >
+        u_id = #{record.uId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update questionnaire
+    set q_id = #{record.qId,jdbcType=VARCHAR},
+      q_name = #{record.qName,jdbcType=VARCHAR},
+      q_createDate = #{record.qCreatedate,jdbcType=VARCHAR},
+      q_state = #{record.qState,jdbcType=BIT},
+      q_count = #{record.qCount,jdbcType=INTEGER},
+      q_remark = #{record.qRemark,jdbcType=VARCHAR},
+      q_time = #{record.qTime,jdbcType=INTEGER},
+      u_id = #{record.uId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqb.pojo.Questionnaire" >
+    update questionnaire
+    <set >
+      <if test="qName != null" >
+        q_name = #{qName,jdbcType=VARCHAR},
+      </if>
+      <if test="qCreatedate != null" >
+        q_createDate = #{qCreatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="qState != null" >
+        q_state = #{qState,jdbcType=BIT},
+      </if>
+      <if test="qCount != null" >
+        q_count = #{qCount,jdbcType=INTEGER},
+      </if>
+      <if test="qRemark != null" >
+        q_remark = #{qRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="qTime != null" >
+        q_time = #{qTime,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where q_id = #{qId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqb.pojo.Questionnaire" >
+    update questionnaire
+    set q_name = #{qName,jdbcType=VARCHAR},
+      q_createDate = #{qCreatedate,jdbcType=VARCHAR},
+      q_state = #{qState,jdbcType=BIT},
+      q_count = #{qCount,jdbcType=INTEGER},
+      q_remark = #{qRemark,jdbcType=VARCHAR},
+      q_time = #{qTime,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=VARCHAR}
+    where q_id = #{qId,jdbcType=VARCHAR}
+  </update>
+</mapper>

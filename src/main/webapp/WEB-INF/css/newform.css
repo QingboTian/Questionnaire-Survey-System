@@ -1,0 +1,115 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #f3f5f6;
+    color: grey;
+}
+.middle{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left:-350px ;
+    width: 700px;
+}
+legend{
+    font-size: 28px;
+}
+.top{
+    background-color: white;
+    padding: 20px 30px;
+}
+.top input{
+    margin: 10px;
+}
+.questionnaire{
+    margin-top: 20px;
+    position: relative;
+    border: darkgray 1px dashed;
+    min-height: 300px;
+}
+.questionnaire img{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    margin-left:-30px ;
+    cursor: pointer;
+}
+#add{
+    position: relative;
+}
+.selected {
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 51px;
+    width: 130px;
+    text-align: center;
+    margin-left: -65px;
+    border: #eeeeee 1px solid;
+    z-index: 1;
+    display: none;
+}
+.selected li{
+    line-height: 30px;
+    list-style: none;
+    cursor: pointer;
+}
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../fonts/icomoon.eot?msxphb');
+    src:  url('../fonts/icomoon.eot?msxphb#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?msxphb') format('truetype'),
+    url('../fonts/icomoon.woff?msxphb') format('woff'),
+    url('../fonts/icomoon.svg?msxphb#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.piece{
+    margin-top: 10px;
+}
+.content{
+    padding: 20px;
+    background-color: white;
+}
+.content div{
+    display: inline-block;
+}
+.content i,a{
+    font-family: "icomoon";
+    font-weight: normal;
+    font-style: normal;
+    margin-right: 20px;
+}
+.content li{
+    margin: 10px 0;
+    list-style: none;
+}
+.bottom{
+    height: 100px;
+    background-color: white;
+    margin: 50px 0;
+    position: relative;
+}
+.handle{
+    float: right;
+}
+a{
+    text-decoration: none;
+    color:grey;
+}
+.submit{
+    width: 190px;
+    height: 40px;
+    color: white;
+    background-color: #2672ff;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -95px;
+    margin-top: -20px;
+}
