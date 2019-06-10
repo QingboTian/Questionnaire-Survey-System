@@ -67,47 +67,49 @@ function showData(data) {
         ableEdit[n].style.width=ableEdit[n].parentNode.offsetWidth+"px";
         effect(ableEdit[n]);
     }
-    function effect(obj){
-        obj.onclick=function () {
-            this.setAttribute("contenteditable","true");
+    function effect(obj) {
+        obj.onclick = function () {
+            this.setAttribute("contenteditable", "true");
         };
-        obj.onfocus=function () {
-            this.style.backgroundColor="#eeeeee";
-            this.style.outline="none";
-            this.style.textOverflow="";
+        obj.onfocus = function () {
+            this.style.backgroundColor = "#eeeeee";
+            this.style.outline = "none";
+            this.style.textOverflow = "";
         };
-        obj.onblur=function () {
-            this.style.backgroundColor="transparent";
-            this.style.textOverflow="ellipsis";
+        obj.onblur = function () {
+            this.style.backgroundColor = "transparent";
+            this.style.textOverflow = "ellipsis";
             /*var range=obj.createTextRange();
             range.moveStart("character",1);
             range.collapse();
             range.select();*/
         }
     }
-    var currState=document.getElementsByClassName("curr-state");
-    for (var i=0;i<currState.length;i++){
-        currState[i].onmouseover=function () {
-            var sign=this.getElementsByTagName("i");
-            if (data.recordList[i].qState == true) {
-                sign[0].innerHTML = "";
-                sign[0].onclick = function () {
-                    sign[0].innerHTML = "";
-                    data.recordList[i].qState = 0;
-                }
-            } else {
+    $(".curr-state").mouseenter(function () {
+        var sign = this.getElementsByTagName("i");
+        var num = $(".curr-state").index(this);
+        var that=this;
+        //this.style.cursor="pointer";
+        if (data.recordList[num].qState == true) {
+            sign[0].innerHTML = "";
+            sign[0].onclick = function () {
                 sign[0].innerHTML = "";
-                sign[0].onclick = function () {
-                    sign[0].innerHTML = "";
-                    data.recordList[i].qState = 1;
-                }
+                that.innerHTML="<i class='red'></i>" + "已结束";
+                data.recordList[num].qState = 0;
             }
-        };
-       currState[i].onmouseout=function () {
-            var sign=this.getElementsByTagName("i");
-            sign[0].innerHTML="";
-        };
-    }
+        } else {
+            sign[0].innerHTML = "";
+            sign[0].onclick = function () {
+                sign[0].innerHTML = "";
+                that.innerHTML="<i class='green'></i>" + "收集中";
+                data.recordList[num].qState = 1;
+            }
+        }
+     });
+    $(".curr-state").mouseout(function () {
+            var sign = this.getElementsByTagName("i");
+            sign[0].innerHTML = "";
+        });
 
 }
 //退出登录的显示隐藏
@@ -146,7 +148,10 @@ window.onscroll=function () {
 };
 // 分享按钮
 function sharefun(data){
-    alert("分享链接为：http://localhost:8080/ques-sys/questionnaire/make?qid=" + data);
+	var domain = window.location.host;
+	/*alert(domain);*/
+	var url = "http://" + domain + "/ques-sys/questionnaire/make?qid=" + data;
+    alert("分享链接为：" + url);
 }
 //统计
 function tongjifun(data){
