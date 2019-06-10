@@ -119,7 +119,7 @@ function addLi(num, remarks, parent) {
 		var li = document.createElement("li");
 		li.innerHTML = remarks[i];
 		parent.appendChild(li);
-		//test
+		//testtest
 	}
 }
 (function() {
