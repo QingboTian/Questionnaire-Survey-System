@@ -20,4 +20,6 @@ public interface QuestionService {
 	public boolean isOpen(String qid);
 
 	public String getNameById(String qid);
+
+	public boolean delete(String qid);
 }

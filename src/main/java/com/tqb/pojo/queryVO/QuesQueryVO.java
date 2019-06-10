@@ -21,7 +21,7 @@ import com.tqb.pojo.ContentAnswer;
  */
 public class QuesQueryVO {
 	private List<Conten> contentList;
-	private List<List<ContentAnswer>> answerList;
+	private List<ContentAnswerList> answerList;
 
 	public List<Conten> getContentList() {
 		return contentList;
@@ -31,11 +31,11 @@ public class QuesQueryVO {
 		this.contentList = contentList;
 	}
 
-	public List<List<ContentAnswer>> getAnswerList() {
+	public List<ContentAnswerList> getAnswerList() {
 		return answerList;
 	}
 
-	public void setAnswerList(List<List<ContentAnswer>> answerList) {
+	public void setAnswerList(List<ContentAnswerList> answerList) {
 		this.answerList = answerList;
 	}
 

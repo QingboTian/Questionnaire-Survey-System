@@ -129,4 +129,17 @@ public class QuestionServiceImpl implements QuestionService {
 		return q.getqName();
 	}
 
+	@Override
+	public boolean delete(String qid) {
+		ContenExample example = new ContenExample();
+		example.createCriteria().andQIdEqualTo(qid);
+		// 查询问卷是否存在级联信息
+		List<Conten> list = contentMapper.selectByExample(example);
+		if (list.size() == 0){
+			mapper.deleteByPrimaryKey(qid);
+			return true;
+		}else
+			return false;
+	}
+
 }

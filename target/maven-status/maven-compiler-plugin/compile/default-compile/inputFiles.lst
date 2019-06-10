@@ -17,11 +17,13 @@ D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\controller\question\Ques
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\mapper\SubmitInfoMapper.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ContentAndAnswer.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\interfaces\login\RegistryService.java
+D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\result\QuesResult.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\controller\submit\SubmitController.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\QuestionnaireExample.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\controller\account\AccountController.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ip\IP.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ip\Data.java
+D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\queryVO\ContentAnswerList.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ContentAnswer.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\controller\login\LoginController.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ContentAnswerExample.java

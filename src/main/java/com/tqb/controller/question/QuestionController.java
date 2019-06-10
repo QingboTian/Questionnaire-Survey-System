@@ -20,6 +20,9 @@ import com.tqb.pojo.ContentAnswer;
 import com.tqb.pojo.QuesAndContentAndAnswer;
 import com.tqb.pojo.Questionnaire;
 import com.tqb.pojo.User;
+import com.tqb.pojo.queryVO.ContentAnswerList;
+import com.tqb.pojo.queryVO.QuesQueryVO;
+import com.tqb.pojo.result.QuesResult;
 import com.tqb.utils.PageBean;
 
 // 问卷的控制层
@@ -50,7 +53,7 @@ public class QuestionController {
 	}
 
 	// 创建问卷（真正要答题的那个）
-	public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, List<Conten> contentList,
+	/*public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, List<Conten> contentList,
 			List<List<ContentAnswer>> answerList) {
 		User user = (User) session.getAttribute("user_state");
 		// 获得用户id
@@ -62,6 +65,34 @@ public class QuestionController {
 		// 状态默认为true
 		ques.setqState(true);
 		// 提交数据
+		service.add(ques, contentList, answerList);
+		// 添加数据成功后，跳转到首页
+		// 记得带参数 uid 当前页（非必须）
+		request.setAttribute("currentPage", 1);
+		request.setAttribute("uid", uid);
+		return "index";
+	}*/
+	public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, QuesQueryVO vo) {
+		User user = (User) session.getAttribute("user_state");
+		// 获得用户id
+		String uid = user.getuId();
+		ques.setuId(uid);
+		// 生成创建时间
+		LocalDateTime date = LocalDateTime.now();
+		ques.setqCreatedate(date.toString());
+		// 状态默认为true
+		ques.setqState(true);
+		// 提交数据
+		List<Conten> contentList = vo.getContentList();
+		List<ContentAnswerList> list = vo.getAnswerList();
+		
+		List<List<ContentAnswer>> answerList = new ArrayList<List<ContentAnswer>>();
+		
+		for (ContentAnswerList contentAnswerList : list) {
+			List<ContentAnswer> answer = contentAnswerList.getAnswer();
+			answerList.add(answer);
+		}
+		
 		service.add(ques, contentList, answerList);
 		// 添加数据成功后，跳转到首页
 		// 记得带参数 uid 当前页（非必须）
@@ -163,7 +194,20 @@ public class QuestionController {
 		answerList.add(list1);
 		answerList.add(list2);
 		answerList.add(list3);
-		add(request, session, q, contentList, answerList);
+		//add(request, session, q, contentList, answerList);
 		System.out.println("ok");
+	}
+	
+	// 通过用户名进行删除问卷
+	@ResponseBody
+	@RequestMapping("/ques/delete")
+	public QuesResult delete(String qid) {
+		boolean b = service.delete(qid);
+		QuesResult data = new QuesResult();
+		if (b)
+			data.setMsg("删除成功");
+		else
+			data.setMsg("删除失败");
+		return data;
 	}
 }

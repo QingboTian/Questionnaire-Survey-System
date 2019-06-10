@@ -37,15 +37,15 @@ function addSingle(ico) {
     var piece=document.createElement("div");
     piece.className="piece";
     piece.innerHTML= '<div class="content">'+
-        '<span class="num"></span><div class="edit title_area" name="">请输入问题</div>'+
+        '<span class="num"></span><div class="edit title_area" name="contentList[].cTitle">请输入问题</div>'+
         '<div class="handle">' +
         '<a href="javascript:;" class="increase" onclick=\'clickEvent(this)\'></a>' +
         '<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>'+
         '<ul><li><div class="li_area"><i>'+ico+'</i>'+
-        '<div class="edit" name="">选项一</div></div>'+
+        '<div class="edit" name="answerList[0].answer[0].caAnswer">选项一</div></div>'+
         '</li>'+
         '<li><div class="li_area"><i>'+ico+'</i>'+
-        '<div class="edit"  name="">选项二</div></div>'+
+        '<div class="edit"  name="answerList[0].answer[1].caAnswer">选项二</div></div>'+
         '</li>'+
         '</ul>'+
         '</div>';

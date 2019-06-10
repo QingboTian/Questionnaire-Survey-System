@@ -22,6 +22,7 @@
 	-->
 <link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" type="text/css" href="css/index.css">
+<link href="https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css" rel="stylesheet">
     <style type="text/css">
     </style>
 </head>
@@ -69,8 +70,10 @@
 </body>
 
 <script src="common/jquery-3.3.1.js"></script>
+<script src="https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
 <script src="js/show.js"></script>
 <script src="js/index.js"></script>
+
 <script>
 	/* $.ajax({
 		// 此处响应问卷数据
