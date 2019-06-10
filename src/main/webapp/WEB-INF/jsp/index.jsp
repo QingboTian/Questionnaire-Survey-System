@@ -32,48 +32,47 @@
 		<ul class="headfl">
         <li><img src="images/logo.png" class="logo"></li>
     </ul>
-		<ul class="info">
-			<li>${user_state.uName }</li>
-			<li><img src="images/more.png"></li>
-		</ul>
-		<div></div>
+    <ul class="info" id="info">
+        <li id="user">${user_state.uName }<img src="images/more.png"></li>
+    </ul>
 		<!-- 用户id -->
 		<div>
 			<form>
 				<input type="hidden" id="uid" value="${user_state.uId }" />
+				<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 			</form>
 		</div>
 	</div>
-	<!--问卷-->
-	<div class="content">
-		<div class="add-list" onclick="addques()">
-			<img src="images/add.png" onclick="javascript:location.href='${pageContext.request.contextPath }/ques/toAddPage'"/>创建问卷
-		</div>
-		<table class="list" cellspacing="0">
-			<thead>
-				<tr>
-					<th>应用名称</th>
-					<th>状态</th>
-					<th>创建时间</th>
-					<th>答卷量</th>
-					<th>备注</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-
-		</table>
-		<!--页码-->
-		<div class="page"></div>
-	</div>
-	<!-- 底部-->
-	<div></div>
+<!--问卷-->
+<div class="content">
+    <div class="add-list">
+       <i></i><span>创建问卷</span>
+    </div>
+    <form id="data">
+    <table class="list" cellspacing="0">
+        <thead>
+        <tr>
+            <th class="headline">应用名称</th>
+            <th class="condition">状态</th>
+            <th class="creation">创建时间</th>
+            <th class="quantity">答卷量</th>
+            <th class="remarks">备注</th>
+            <th class="handle">操作</th>
+        </tr>
+        </thead>
+    </table>
+    <!--页码-->
+    <!--<div class="page"></div>-->
+    </form>
+</div>
+<!-- 底部-->
 </body>
 
 <script src="common/jquery-3.3.1.js"></script>
-<script src="common/show.js"></script>
-<script src="common/index.js"></script>
+<script src="js/show.js"></script>
+<script src="js/index.js"></script>
 <script>
-	$.ajax({
+	/* $.ajax({
 		// 此处响应问卷数据
 		url : "ques/list",
 		type : "post",
@@ -88,49 +87,8 @@
 		error : function() {
 			alert("请求失败");
 		}
-	});
-	function f1() {
-	}
-	function f(len, num) {
-		var total = Math.ceil(len / num);
-	}
+	}); */
 
-	// 分享按钮
-	function sharefun(data) {
-		alert("分享链接为：http://localhost:8080/ques-sys/questionnaire/make?qid=" + data);
-	}
-
-	function tongjifun(data) {
-		alert("开发中...");
-	}
-
-	function addques() {
-		$.ajax({
-			// 此处响应问卷数据
-			url : "ques/toAddPage",
-		});
-	}
-
-	function showData(data) {
-		
-		for (var i = 0; i < data.pageSize; i++) {
-		var tbody = document.createElement("tbody");
-			var state = "暂停服务";
-			if (data.recordList[i].qState == true) {
-				state = "服务中..."
-			}
-			var sharelink = data.recordList[i].qId;
-			tbody.innerHTML ="<tr><td>" + data.recordList[i].qName +
-				"</td><td><font color='green'>" + state +
-				"</font></td><td>" + data.recordList[i].qCreatedate +
-				"</td><td>" + data.recordList[i].qCount +
-				"</td><td>" + data.recordList[i].qRemark +
-				"</td><td>" + "<a onclick='sharefun(\"" + sharelink + "\")'>分享</a> " +
-				"| <a onclick='tongjifun()'>统计</a> " +
-				"| <a onclick='morefun()'>更多</a>" +
-				"</td></tr>";
-			document.querySelector(".list").appendChild(tbody);
-		}
-	}
+	showData(data);
 </script>
 </html>

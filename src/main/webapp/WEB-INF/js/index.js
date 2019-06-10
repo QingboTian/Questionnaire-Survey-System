@@ -35,8 +35,9 @@ $(document).ready(function () {
 var addList=document.querySelector(".add-list");
 var table=document.querySelector(".list");
 addList.style.marginLeft=table.offsetLeft+"px";
+var pageContext = $("#PageContext").val();
 addList.onclick=function () {
-    window.location.href="newForm.html";
+    window.location.href=pageContext + "/ques/toAddPage";
 };
 //显示数据
 function showData(data) {
@@ -55,7 +56,7 @@ function showData(data) {
             "</div></td><td><div class='edit' name='qCreatedate'>" + data.recordList[i].qCreatedate +
             "</div></td><td><div class='edit' name='qCount'>" + data.recordList[i].qCount +
             "</div></td><td><div class='edit' name='qRemark'>" + data.recordList[i].qRemark +
-            "</div></td><td>" + "<a href='javascript:;' onclick='sharefun(" + sharelink + ")'>分享</a> " +
+            "</div></td><td>" + "<a onclick='sharefun(\"" + sharelink + "\")'>分享</a> " +
             "| <a href='javascript:;' onclick='tongjifun()'>统计</a> " +
             "| <a href='javascript:;' onclick='deleteForm(this)' class='more'>删除</a>" +
             "</td></tr>";
@@ -111,25 +112,25 @@ function showData(data) {
 }
 //退出登录的显示隐藏
 function addLi(num,remarks,parent) {
-    for (var i=0;i<num;i++){
-        var li=document.createElement("li");
-        li.innerHTML=remarks[i];
-        parent.appendChild(li);
-    }
+  for (var i=0;i<num;i++){
+      var li=document.createElement("li");
+      li.innerHTML=remarks[i];
+      parent.appendChild(li);
+  }
 }
 (function () {
-    var ul=document.createElement("ul");
-    var user=document.getElementById("user");
-    var info=document.getElementById("info");
-    addLi(1,["退出登录"],ul);
-    ul.className="menu";
-    user.appendChild(ul);
-    info.onmouseover=function () {
-        ul.style.display="inline";
-    };
-    info.onmouseout=function () {
-        ul.style.display="none";
-    };
+  var ul=document.createElement("ul");
+  var user=document.getElementById("user");
+  var info=document.getElementById("info");
+  addLi(1,["退出登录"],ul);
+  ul.className="menu";
+  user.appendChild(ul);
+  info.onmouseover=function () {
+      ul.style.display="inline";
+  };
+  info.onmouseout=function () {
+      ul.style.display="none";
+  };
 }());
 //导航栏固定
 window.onscroll=function () {
@@ -145,7 +146,7 @@ window.onscroll=function () {
 };
 // 分享按钮
 function sharefun(data){
-    alert("分享链接为：" + data);
+    alert("分享链接为：http://localhost:8080/ques-sys/questionnaire/make?qid=" + data);
 }
 //统计
 function tongjifun(data){

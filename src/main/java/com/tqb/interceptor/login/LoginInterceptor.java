@@ -15,6 +15,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		// 对问卷生成的接口不进行过滤
 		String papermaking = "/ques-sys/questionnaire/make";
+		String showdata = "/ques-sys/questionnaire/showdata";
 		// 提交问卷
 		String submit = "/ques-sys/questionnaire/submit";
 		// 登录页面
@@ -24,8 +25,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// 登录按钮
 		String login_button = "/ques-sys/login";
 		
-		if (request.getRequestURI().contains(papermaking) || request.getRequestURI().contains(submit))
+		if (request.getRequestURI().contains(papermaking) || 
+				request.getRequestURI().contains(submit) || request.getRequestURI().contains(showdata))
 			return true;
+		
 		// 注册页面
 		if (request.getRequestURI().contains(register)){
 			return true;

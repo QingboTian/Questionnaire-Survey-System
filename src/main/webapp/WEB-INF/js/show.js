@@ -1,29 +1,30 @@
 function showForm(data) {
-    var named=[1,2,3,4,5,6];
     var content=document.getElementById("content");
     var headline=document.getElementsByTagName("h2");
     headline[0].innerHTML=data.quesname;
     for (var i=0;i<data.answerList.length;i++){
-        list(data.answerList[i],i,content,named[i]);
+        showList(data.answerList[i],i,content,data.answerList[i].name);
     }
 }
-function list(xxx,num,parent,named) {
+function showList(set,num,parent,named) {
     var div=document.createElement("div");
     var title=document.createElement("div");
     var number=document.createElement("span");
     var topic=document.createElement("span");
     var prompt=document.createElement("span");
     var project=document.createElement("div");
-    for (var i=0;i<"选项列表".length;i++){
+    number.innerHTML=num+1;
+    topic.innerHTML=named;
+    for (var i=0;i<set.answerList.length;i++){
+        var answerList=document.createElement("div");
         var option=document.createElement("input");
         option.type="radio";
-        option.name=named;
-        project.appendChild(option);
-    }
-    number.innerHTML=num+1;
-    topic.innerHTML=xxx.caAnswer;
-    for (var i=0;i<option.length;i++){
-        option[i].innerHTML="ftyd";
+        option.name=set.answerList[i].cId;
+        var lab=document.createElement("label");
+        lab.innerHTML=set.answerList[i].caAnswer;
+        answerList.appendChild(option);
+        answerList.appendChild(lab);
+        project.appendChild(answerList);
     }
     div.className="list";
     title.className="question";

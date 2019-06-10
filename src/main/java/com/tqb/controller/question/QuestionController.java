@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,7 +49,7 @@ public class QuestionController {
 		return "createque";
 	}
 
-	// 创建问卷（真正要答题的那个呀）
+	// 创建问卷（真正要答题的那个）
 	public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, List<Conten> contentList,
 			List<List<ContentAnswer>> answerList) {
 		User user = (User) session.getAttribute("user_state");
@@ -69,7 +70,20 @@ public class QuestionController {
 		return "index";
 	}
 
-	
+	/**
+	 * <p>Title: toQuesPage</p>  
+	 * <p>Description: 
+	 * 跳转到问卷页面
+	 * </p>  
+	 * @return
+	 */
+	@RequestMapping("/questionnaire/make")
+	public String toQuesPage(String qid, Model model){
+		String quesname = service.getNameById(qid);
+		model.addAttribute("qid", qid);
+		model.addAttribute("quesname", quesname);
+		return "questionnaire";
+	}
 
 	/**
 	 * 生成问卷的接口 这个接口不应该过滤 在过滤器中进行释放
@@ -78,7 +92,7 @@ public class QuestionController {
 	 *            试卷id
 	 */
 	@ResponseBody
-	@RequestMapping("/questionnaire/make")
+	@RequestMapping("/questionnaire/showdata")
 	public QuesAndContentAndAnswer testpapermaking(String qid) {
 		// 查看服务的开与闭
 		boolean b = service.isOpen(qid);

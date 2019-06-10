@@ -18,4 +18,6 @@ public interface QuestionService {
 	public void closeOropen(String qid, Boolean state);
 
 	public boolean isOpen(String qid);
+
+	public String getNameById(String qid);
 }

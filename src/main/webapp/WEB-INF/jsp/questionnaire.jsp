@@ -23,6 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <form>
+  <input type="hidden" id = "qid" name="qid" value="${qid }"></input>
+  </form>
 <div class="middle">
     <div class="info">
         <div class="top">
@@ -40,20 +43,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/show.js"></script>
 <script>
-   /* $.ready(function () {
+   /* $.ready(function () { */
+   		var qid = $('#qid').val();
         $.ajax({
-            url:"",
+            url:"questionnaire/showdata",
             type:"post",
-            dataType:"",
-            data:{},
-            success:function () {
+            /* dataType:"", */
+            data:"qid="+qid,
+            success:function (data) {
                 showForm(data);
             },
-            error:function () {
-
+            error:function (data) {
+				alert("问卷生成错误");
             }
         });
-    });*/
-   showForm();
+    /* }); */
+   /* showForm(); */
 </script>
 </html>

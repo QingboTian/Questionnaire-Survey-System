@@ -123,4 +123,10 @@ public class QuestionServiceImpl implements QuestionService {
 		return q.getqState();
 	}
 
+	@Override
+	public String getNameById(String qid) {
+		Questionnaire q = mapper.selectByPrimaryKey(qid);
+		return q.getqName();
+	}
+
 }
