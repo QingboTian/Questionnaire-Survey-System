@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tqb.mapper.SubmitInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tqb.pojo.SubmitInfo" >
+    <id column="si_id" property="siId" jdbcType="INTEGER" />
+    <result column="si_ip" property="siIp" jdbcType="VARCHAR" />
+    <result column="si_location" property="siLocation" jdbcType="VARCHAR" />
+    <result column="si_date" property="siDate" jdbcType="VARCHAR" />
+    <result column="q_id" property="qId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    si_id, si_ip, si_location, si_date, q_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tqb.pojo.SubmitInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from submit_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from submit_info
+    where si_id = #{siId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from submit_info
+    where si_id = #{siId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tqb.pojo.SubmitInfoExample" >
+    delete from submit_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tqb.pojo.SubmitInfo" >
+  		<selectKey resultType="Integer" order="AFTER" keyProperty="siId">
+			select LAST_INSERT_ID()
+		</selectKey>
+    insert into submit_info (si_ip, si_location, 
+      si_date, q_id)
+    values (#{siIp,jdbcType=VARCHAR}, #{siLocation,jdbcType=VARCHAR}, 
+      #{siDate,jdbcType=VARCHAR}, #{qId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tqb.pojo.SubmitInfo" >
+    insert into submit_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="siId != null" >
+        si_id,
+      </if>
+      <if test="siIp != null" >
+        si_ip,
+      </if>
+      <if test="siLocation != null" >
+        si_location,
+      </if>
+      <if test="siDate != null" >
+        si_date,
+      </if>
+      <if test="qId != null" >
+        q_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="siId != null" >
+        #{siId,jdbcType=INTEGER},
+      </if>
+      <if test="siIp != null" >
+        #{siIp,jdbcType=VARCHAR},
+      </if>
+      <if test="siLocation != null" >
+        #{siLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="siDate != null" >
+        #{siDate,jdbcType=VARCHAR},
+      </if>
+      <if test="qId != null" >
+        #{qId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tqb.pojo.SubmitInfoExample" resultType="java.lang.Integer" >
+    select count(*) from submit_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update submit_info
+    <set >
+      <if test="record.siId != null" >
+        si_id = #{record.siId,jdbcType=INTEGER},
+      </if>
+      <if test="record.siIp != null" >
+        si_ip = #{record.siIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siLocation != null" >
+        si_location = #{record.siLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siDate != null" >
+        si_date = #{record.siDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qId != null" >
+        q_id = #{record.qId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update submit_info
+    set si_id = #{record.siId,jdbcType=INTEGER},
+      si_ip = #{record.siIp,jdbcType=VARCHAR},
+      si_location = #{record.siLocation,jdbcType=VARCHAR},
+      si_date = #{record.siDate,jdbcType=VARCHAR},
+      q_id = #{record.qId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tqb.pojo.SubmitInfo" >
+    update submit_info
+    <set >
+      <if test="siIp != null" >
+        si_ip = #{siIp,jdbcType=VARCHAR},
+      </if>
+      <if test="siLocation != null" >
+        si_location = #{siLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="siDate != null" >
+        si_date = #{siDate,jdbcType=VARCHAR},
+      </if>
+      <if test="qId != null" >
+        q_id = #{qId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where si_id = #{siId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tqb.pojo.SubmitInfo" >
+    update submit_info
+    set si_ip = #{siIp,jdbcType=VARCHAR},
+      si_location = #{siLocation,jdbcType=VARCHAR},
+      si_date = #{siDate,jdbcType=VARCHAR},
+      q_id = #{qId,jdbcType=VARCHAR}
+    where si_id = #{siId,jdbcType=INTEGER}
+  </update>
+</mapper>

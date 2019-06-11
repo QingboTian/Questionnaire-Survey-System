@@ -20,6 +20,7 @@ function showList(set,num,parent,named) {
         var option=document.createElement("input");
         option.type="radio";
         option.name=set.answerList[i].cId;
+        option.value=set.answerList[i].cId;
         var lab=document.createElement("label");
         lab.innerHTML=set.answerList[i].caAnswer;
         answerList.appendChild(option);
