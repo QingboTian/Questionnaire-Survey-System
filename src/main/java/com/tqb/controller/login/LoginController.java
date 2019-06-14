@@ -51,7 +51,7 @@ public class LoginController {
 		return "index";
 	}
 	
-	@RequestMapping("/exit")
+	@RequestMapping("/login/exit")
 	// 退出登录
 	public String exit(HttpSession session){
 		// 从session中删除用户状态

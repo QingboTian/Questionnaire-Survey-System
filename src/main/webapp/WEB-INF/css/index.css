@@ -12,52 +12,45 @@ body{
     line-height: 65px;
     background-color: white;
 }
-
 ul {
     display: inline-block;
     list-style: none;
 }
-
 .top>ul>li {
     list-style: none;
     display: inline;
     word-wrap: normal;
 }
-
 .logo {
     width: 180px;
     height: 70px;
     vertical-align: middle;
 }
-
 .brand {
     font-size: 26px;
     color: grey;
 }
-
 .headfl {
     float: left;
     margin-left: 10%;
 }
-
 .info {
     float: right;
     margin-right: 20%;
     cursor: pointer;
-}
-#user{
     position: relative;
     font-weight: bold;
+    width: 120px;
+    text-align: center;
 }
 .menu{
+    font-size: 14px;
     background-color: white;
     position: absolute;
-    right:2%;
-    top: 43px;
-    width: 130px;
-    text-align: center;
-    border: #eeeeee 1px solid;
-    z-index: 1;
+    left:0;
+    top: 63px;
+    width: 120px;
+    z-index:5;
     display: none;
     font-weight: normal;
 }
@@ -69,12 +62,10 @@ ul {
     height: 15px;
     vertical-align: middle;
 }
-
 .content {
     height: 900px;
     position: relative;
 }
-
 .add-list {
     border: 1px solid darkgrey;
     background-color: white ;
@@ -85,44 +76,22 @@ ul {
     margin-top: 80px;
     cursor: pointer;
 }
-
 .list {
-    width: 1000px;
     border: 1px solid darkgray;
     margin-top: 20px;
     text-align: center;
     position: absolute;
     left: 50%;
-    margin-left: -500px;
 }
 .list thead {
     background-color: #F9F9F9;
 }
-
 .list tr {
     height: 50px;
     border-bottom: #9F9E9E;
 }
 .list th{
     overflow: hidden;
-}
-.headline{
-    width: 300px;
-}
-.condition{
-    width: 120px;
-}
-.creation{
-    width: 200px;
-}
-.quantity{
-    width: 80px;
-}
-.remarks{
-    width: 145px;
-}
-.handle{
-    width: 150px;
 }
 #more{
     position: relative;
@@ -170,10 +139,11 @@ a{
 .red{
      color: red;
     font-size: 18px;
-     padding: 1px;
 }
 .green{
     color: #4bff21;
     font-size: 18px;
-    padding: 1px;
+}
+.curr-state{
+    cursor: pointer;
 }

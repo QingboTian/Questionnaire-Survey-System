@@ -49,7 +49,7 @@
     <div class="add-list">
        <i></i><span>创建问卷</span>
     </div>
-    <form id="data">
+    <form id="data" onhaschange="changeForm()">
     <table class="list" cellspacing="0">
         <thead>
         <tr>

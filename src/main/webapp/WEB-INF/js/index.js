@@ -31,45 +31,49 @@ $(document).ready(function() {
 		})
 	});
 });
-//对齐
-var addList = document.querySelector(".add-list");
-var table = document.querySelector(".list");
-addList.style.marginLeft = table.offsetLeft + "px";
-var pageContext = $("#PageContext").val();
-addList.onclick = function() {
-	window.location.href = pageContext + "/ques/toAddPage";
-};
+
 //显示数据
 function showData(data) {
-	var tbody = document.createElement("tbody");
-	// var table=document.querySelector(".list");
-	tbody.innerHTML = "";
-	tbody.style.backgroundColor = "white";
-	for (var i = 0; i < data.pageSize; i++) {
-		var state = "<i class='red'></i>" + "已结束";
-		if (data.recordList[i].qState == true) {
-			state = "<i class='green'></i>" + "收集中";
-		}
-		var sharelink = data.recordList[i].qId;
-		var qid = sharelink;
-		tbody.innerHTML += "<tr><td><div class='edit' name='qName'>" + data.recordList[i].qName +
-			"</div></td><td><div class='curr-state'>" + state +
-			"</div></td><td><div name='qCreatedate'>" + data.recordList[i].qCreatedate +
-			"</div></td><td><div class='edit' name='qCount'>" + data.recordList[i].qCount +
-			"</div></td><td><div class='edit' name='qRemark'>" + data.recordList[i].qRemark +
-			"</div></td><td>" + "<a onclick='sharefun(\"" + sharelink + "\")'>分享</a> " +
-			"| <a href='javascript:;' onclick='tongjifun()'>统计</a> " +
-			"| <a href='javascript:;' onclick='deleteForm(\"" + qid + "\")' class='more'>删除</a>" +
-			"</td></tr>";
-		table.appendChild(tbody);
-	}
+	var table=document.querySelector(".list");
+    var tbody = document.createElement("tbody");
+    tbody.innerHTML = "";
+    tbody.style.backgroundColor = "white";
+    for (var i = 0; i < data.pageSize; i++) {
+        var state = "<i class='red'></i>" + "已结束";
+        if (data.recordList[i].qState == true) {
+            state = "<i class='green'></i>" + "收集中";
+        }
+        var sharelink = data.recordList[i].qId;
+        tbody.innerHTML += "<tr><td><div class='edit' name='qName'>" + data.recordList[i].qName +
+            "</div></td><td><div class='curr-state'>" + state +
+            "</div></td><td><div name='qCreatedate'>" + data.recordList[i].qCreatedate +
+            "</div></td><td><div class='edit' name='qCount'>" + data.recordList[i].qCount +
+            "</div></td><td><div class='edit' name='qRemark'>" + data.recordList[i].qRemark +
+            "</div></td><td>" + "<a href='javascript:;' onclick='sharefun(\""+sharelink+"\")'>分享</a> " +
+            "| <a href='javascript:;' onclick='tongjifun()'>统计</a> " +
+            "| <a href='javascript:;' onclick='deleteForm(this)' class='more'>删除</a>" +
+            "</td></tr>";
+        table.appendChild(tbody);
+    }
+    table.style.width=79+"%";
+    table.style.marginLeft="-39%";
+    
+  //对齐
+    var addList = document.querySelector(".add-list");
+    var table = document.querySelector(".list");
+    addList.style.marginLeft = table.offsetLeft + "px";
+    var pageContext = $("#PageContext").val();
+    addList.onclick = function() {
+    	window.location.href = pageContext + "/ques/toAddPage";
+    };
+	
 	var ableEdit = document.getElementsByClassName("edit");
     for (var n = 0; n < ableEdit.length; n++) {
-        ableEdit[n].style.width = ableEdit[n].parentNode.offsetWidth + "px";
         effect(ableEdit[n]);
     }
 
     function effect(obj) {
+        var htmlold=obj.innerHTML;
         obj.onclick = function () {
             this.setAttribute("contenteditable", "true");
         };
@@ -77,16 +81,23 @@ function showData(data) {
             this.style.backgroundColor = "#eeeeee";
             this.style.outline = "none";
             this.style.textOverflow = "";
+
         };
         obj.onblur = function () {
+            var htmlnew=obj.innerHTML;
             this.style.backgroundColor = "transparent";
             this.style.textOverflow = "ellipsis";
-            /*var range=obj.createTextRange();
-            range.moveStart("character",1);
-            range.collapse();
-            range.select();*/
+            if (htmlold!=htmlnew){
+                var postname= $(this).attr("name");
+               if (confirm("确定要修改吗")){
+                   $.post("", {
+                       postname :$(this).html()
+                       });
+               }
+            }
         }
     }
+
     $(".curr-state").mouseenter(function () {
         var sign = this.getElementsByTagName("i");
         var num = $(".curr-state").index(this);
@@ -95,16 +106,26 @@ function showData(data) {
         if (data.recordList[num].qState == true) {
             sign[0].innerHTML = "";
             sign[0].onclick = function () {
-                sign[0].innerHTML = "";
-                that.innerHTML="<i class='red'></i>" + "已结束";
-                data.recordList[num].qState = 0;
+                if(confirm("确认结束吗？")){
+                    sign[0].innerHTML = "";
+                    that.innerHTML="<i class='red'></i>" + "已结束";
+                    $sta=data.recordList[num].qState ;
+                    $.post("", {
+                       $sta:0
+                    });
+                }
             }
         } else {
             sign[0].innerHTML = "";
             sign[0].onclick = function () {
-                sign[0].innerHTML = "";
-                that.innerHTML="<i class='green'></i>" + "收集中";
-                data.recordList[num].qState = 1;
+                if (confirm("确认重新开始吗？")) {
+                    sign[0].innerHTML = "";
+                    that.innerHTML="<i class='green'></i>" + "收集中";
+                    $sta=data.recordList[num].qState ;
+                    $.post("", {
+                        $sta:1
+                    });
+                }
             }
         }
      });
@@ -114,21 +135,22 @@ function showData(data) {
         });
 
 }
-//退出登录的显示隐藏
-function addLi(num,remarks,parent) {
+//退出登录显示与隐藏
+function addLi(num,remarks,parent,nameId) {
   for (var i=0;i<num;i++){
       var li=document.createElement("li");
       li.innerHTML=remarks[i];
+      li.id=nameId[i];
       parent.appendChild(li);
   }
 }
 (function () {
   var ul=document.createElement("ul");
-  var user=document.getElementById("user");
+  var li=document.getElementById("user");
   var info=document.getElementById("info");
-  addLi(1,["退出登录"],ul);
+  addLi(2,["个人信息","退出登录"],ul,["personal","quit"]);
   ul.className="menu";
-  user.appendChild(ul);
+  li.appendChild(ul);
   info.onmouseover=function () {
       ul.style.display="inline";
   };
@@ -196,3 +218,15 @@ function deleteForm(obj) {
 function numPages() {
 
 }*/
+//退出登录
+$("#quit").click(function () {
+  var flag=confirm("确定要退出登录吗？");
+  if (flag==true){
+      window.location.href="login/exit";
+  }
+});
+
+$("#personal").click(function () {
+	alert("开发ing");
+	     // window.location.href="login/exit";
+	});

@@ -1,4 +1,5 @@
 var count=0;
+var num=0;
 //单选多选列表
 function addLi(num,remarks,parent) {
     for (var i=0;i<num;i++){
@@ -35,32 +36,34 @@ function addLi(num,remarks,parent) {
 }());
 //创建一个问答，插入add之前
 function addSingle(ico) {
-    var piece=document.createElement("div");
-    piece.className="piece";
-    piece.innerHTML= '<div class="content">'+
-        '<span class="num"></span><div class="edit title_area" name="contentList[" +count+ "].cTitle">请输入问题</div>'+
+    num=1;
+    var piece = document.createElement("div");
+    piece.className = "piece";
+    piece.innerHTML = '<div class="content">' +
+        '<span class="num"></span><div class="edit title_area" name="contentList["+count+"].cTitle">请输入问题</div>' +
         '<div class="handle">' +
         '<a href="javascript:;" class="increase" onclick=\'clickEvent(this)\'></a>' +
-        '<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>'+
-        '<ul><li><div class="li_area"><i>'+ico+'</i>'+
-        '<div class="edit" name="answerList[0].answer[0].caAnswer">选项一</div></div>'+
-        '</li>'+
-        '<li><div class="li_area"><i>'+ico+'</i>'+
-        '<div class="edit"  name="answerList[0].answer[1].caAnswer">选项二</div></div>'+
-        '</li>'+
-        '</ul>'+
+        '<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>' +
+        '<ul><li><div class="li_area"><i>' + ico + '</i>' +
+        '<div class="edit" name="answerList[+count+].answer[0].caAnswer">选项一</div></div>' +
+        '</li>' +
+        '<li><div class="li_area"><i>' + ico + '</i>' +
+        '<div class="edit"  name="answerList[+count+].answer[1].caAnswer">选项二</div></div>' +
+        '</li>' +
+        '</ul>' +
         '</div>';
     count++;
-    var selected=document.getElementById("selected");
-    var li=selected.getElementsByTagName("li");
-    var question=document.getElementById("questionnaire");
-    var add=document.getElementById("add");
-    question.insertBefore(piece,add);
-    question.style.border="none";
+    var selected = document.getElementById("selected");
+    var li = selected.getElementsByTagName("li");
+    var question = document.getElementById("questionnaire");
+    var add = document.getElementById("add");
+    question.insertBefore(piece, add);
+    question.style.border = "none";
     editText();
 }
 //点击添加按钮
 function clickEvent(obj) {
+    num++;
     var increase = document.getElementsByClassName("increase");
     var content = obj.parentNode.parentNode;
     var lis = content.getElementsByTagName("li");
@@ -73,7 +76,7 @@ function clickEvent(obj) {
     area.className="li_area";
     i.innerHTML = ico[0].innerHTML;
     div.className="edit";
-    div.name="";
+    div.name="answerList[+count+].answer[+num+].caAnswer";
     div.innerHTML = "选项" + toChinese(lis.length + 1);
     area.appendChild(i);
     area.appendChild(div);
