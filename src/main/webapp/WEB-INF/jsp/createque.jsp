@@ -48,4 +48,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </body>
 <script src="js/form.js"></script>
+<script src="common/jquery-3.3.1.js"></script>
 </html>

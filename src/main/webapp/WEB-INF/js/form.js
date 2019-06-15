@@ -40,15 +40,15 @@ function addSingle(ico) {
     var piece = document.createElement("div");
     piece.className = "piece";
     piece.innerHTML = '<div class="content">' +
-        '<span class="num"></span><div class="edit title_area" name="contentList["+count+"].cTitle">请输入问题</div>' +
+        '<span class="num"></span><div class="edit title_area" name="contentList['+count+'].cTitle">请输入问题</div>' +
         '<div class="handle">' +
         '<a href="javascript:;" class="increase" onclick=\'clickEvent(this)\'></a>' +
         '<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>' +
         '<ul><li><div class="li_area"><i>' + ico + '</i>' +
-        '<div class="edit" name="answerList[+count+].answer[0].caAnswer">选项一</div></div>' +
+        '<div class="edit" name="answerList['+count+'].answer[0].caAnswer">选项一</div></div>' +
         '</li>' +
         '<li><div class="li_area"><i>' + ico + '</i>' +
-        '<div class="edit"  name="answerList[+count+].answer[1].caAnswer">选项二</div></div>' +
+        '<div class="edit"  name="answerList['+count+'].answer[1].caAnswer">选项二</div></div>' +
         '</li>' +
         '</ul>' +
         '</div>';
@@ -76,7 +76,9 @@ function clickEvent(obj) {
     area.className="li_area";
     i.innerHTML = ico[0].innerHTML;
     div.className="edit";
-    div.name="answerList[+count+].answer[+num+].caAnswer";
+   
+    div.name="answerList["+count+"].answer["+num+"].caAnswer";
+    alert(1)
     div.innerHTML = "选项" + toChinese(lis.length + 1);
     area.appendChild(i);
     area.appendChild(div);
@@ -84,6 +86,7 @@ function clickEvent(obj) {
     if (lis.length < 5){
         ul[0].appendChild(li);
     }
+    $('.edit')[num].attr('name',"answerList["+count+"].answer["+num+"].caAnswer");
     editText();
 }
 //点击删除按钮

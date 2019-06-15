@@ -205,6 +205,7 @@ public class QuestionController {
 		System.out.println("ok");
 	}
 	
+	// TODO
 	// 通过用户名进行删除问卷
 	@ResponseBody
 	@RequestMapping("/ques/delete")
@@ -212,9 +213,9 @@ public class QuestionController {
 		boolean b = service.delete(qid);
 		QuesResult data = new QuesResult();
 		if (b)
-			data.setMsg("删除成功");
+			data.setMsg("true");
 		else
-			data.setMsg("删除失败");
+			data.setMsg("false");
 		return data;
 	}
 }

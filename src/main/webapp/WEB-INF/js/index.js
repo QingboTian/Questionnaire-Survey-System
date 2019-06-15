@@ -16,20 +16,6 @@ $(document).ready(function() {
 			alert("请求失败");
 		}
 	});
-	//数据更改
-	$("#data").change(function() {
-		$.ajax({
-			type : "post",
-			url : "",
-			data : $("#data").serialize(),
-			success : function() {
-				alert("修改成功！");
-			},
-			error : function() {
-				alert("修改失败！");
-			}
-		})
-	});
 });
 
 //显示数据
@@ -226,23 +212,13 @@ function deleteForm(obj) {
 			url : "ques/delete",
 			data : "qid=" + obj,
 			success : function(data) {
-				alert(data.msg);
-				$.ajax({
-					// 此处响应问卷数据
-					url : "ques/list",
-					type : "post",
-					dataType : "json",
-					data : {
-						"uid" : $("#uid").val(),
-						"currentPage" : $("#currentPage").val()
-					},
-					success : function(data) {
-						showData(data);
-					},
-					error : function() {
-						alert("请求失败");
-					}
-				});
+				if (data.msg == "true"){
+					alert("删除成功！");
+					var tbody=document.getElementsByTagName("tbody");
+					tbody[0].removeChild(obj.parentNode.parentNode);
+				}else{
+					alert("删除失败！");
+				}
 			}
 		});
 	}
