@@ -63,6 +63,7 @@ com\tqb\utils\PageBean.class
 com\tqb\mapper\QuestionnaireMapper.class
 com\tqb\pojo\SubmitInfoExample.class
 com\tqb\pojo\SubmitInfoExample$Criterion.class
+com\tqb\exception\QuesException.class
 com\tqb\mapper\ContentAnswerMapper.class
 com\tqb\pojo\ContenExample.class
 com\tqb\pojo\UserExample.class

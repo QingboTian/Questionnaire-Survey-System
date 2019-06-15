@@ -134,10 +134,17 @@ public class QuestionController {
 		return null;
 	}
 	
-	// 关闭服务
-	public String closeOropen(String qid, Boolean state){
+	// 关闭或开启服务
+	@ResponseBody
+	@RequestMapping("/questionnaire/closeOropen")
+	public QuesResult closeOropen(String qid, Boolean state){
+		QuesResult res = new QuesResult();
+		if (state)
+			res.setMsg("true");
+		else
+			res.setMsg("false");
 		service.closeOropen(qid, state);
-		return "index";
+		return res;
 	}
 
 	// 测试方法

@@ -44,8 +44,9 @@ function showData(data) {
             state = "<i class='green'></i>" + "收集中";
         }
         var sharelink = data.recordList[i].qId;
+        var stateValue = data.recordList[i].qState;
         tbody.innerHTML += "<tr><td><div class='edit' name='qName'>" + data.recordList[i].qName +
-            "</div></td><td><div class='curr-state'>" + state +
+            "</div></td><td><div class='curr-state' value=" + stateValue + ">" + state + 
             "</div></td><td><div name='qCreatedate'>" + data.recordList[i].qCreatedate +
             "</div></td><td><div class='edit' name='qCount'>" + data.recordList[i].qCount +
             "</div></td><td><div class='edit' name='qRemark'>" + data.recordList[i].qRemark +
@@ -109,10 +110,27 @@ function showData(data) {
                 if(confirm("确认结束吗？")){
                     sign[0].innerHTML = "";
                     that.innerHTML="<i class='red'></i>" + "已结束";
-                    $sta=data.recordList[num].qState ;
-                    $.post("", {
-                       $sta:0
-                    });
+                    $sta=data.recordList[num].qState;
+                    var qid=data.recordList[num].qId;
+                    /*alert($sta);
+                    alert(qid);*/
+                    $.ajax({
+    					// 此处响应问卷数据
+    					url : "questionnaire/closeOropen",
+    					type : "post",
+    					dataType : "json",
+    					data : {
+    						"qid" : qid,
+    						"state" : $sta
+    						
+    					},
+    					success : function(data) {
+                    		if (data.msg == "true"){
+                    			$sta:1
+                    		}else
+                    			$sta:0
+    					}
+    				});
                 }
             }
         } else {
@@ -121,10 +139,26 @@ function showData(data) {
                 if (confirm("确认重新开始吗？")) {
                     sign[0].innerHTML = "";
                     that.innerHTML="<i class='green'></i>" + "收集中";
-                    $sta=data.recordList[num].qState ;
-                    $.post("", {
-                        $sta:1
-                    });
+                    $sta=data.recordList[num].qState;
+                    var qid=data.recordList[num].qId;
+                    /*alert($sta);
+                    alert(qid);*/
+                    $.ajax({
+    					// 此处响应问卷数据
+    					url : "questionnaire/closeOropen",
+    					type : "post",
+    					dataType : "json",
+    					data : {
+    						"qid" : qid,
+    						"state" : $sta
+    					},
+    					success : function(data) {
+                    		if (data.msg == "true"){
+                    			$sta:1
+                    		}else
+                    			$sta:0
+    					}
+    				});
                 }
             }
         }
@@ -226,6 +260,7 @@ $("#quit").click(function () {
   }
 });
 
+// 个人信息
 $("#personal").click(function () {
 	alert("开发ing");
 	     // window.location.href="login/exit";

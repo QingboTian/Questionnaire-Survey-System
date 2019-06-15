@@ -108,13 +108,12 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public void closeOropen(String qid, Boolean state) {
-		Questionnaire q = new Questionnaire();
-		q.setqId(qid);
+		Questionnaire ques = mapper.selectByPrimaryKey(qid);
 		if (state)// 若服务打开则关闭
-			q.setqState(false);
+			ques.setqState(false);
 		else// 若服务关闭则打开
-			q.setqState(true);
-		mapper.updateByPrimaryKey(q);
+			ques.setqState(true);
+		mapper.updateByPrimaryKey(ques);
 	}
 
 	@Override
