@@ -128,6 +128,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return q.getqName();
 	}
 
+	// TODO 删除功能有问题
 	@Override
 	public boolean delete(String qid) {
 		/*ContenExample example = new ContenExample();

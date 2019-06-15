@@ -31,11 +31,11 @@ function showData(data) {
 		}
 		var sharelink = data.recordList[i].qId;
 		var stateValue = data.recordList[i].qState;
-		tbody.innerHTML += "<tr><td><div class='edit' name='qName' value=" + sharelink + ">" + data.recordList[i].qName +
+		tbody.innerHTML += "<tr><td><div class='edit' name='qName' qid=" + sharelink + ">" + data.recordList[i].qName +
 			"</div></td><td><div class='curr-state' value=" + stateValue + ">" + state +
 			"</div></td><td><div name='qCreatedate'>" + data.recordList[i].qCreatedate +
-			"</div></td><td><div class='edit' name='qCount' value=" + sharelink + ">" + data.recordList[i].qCount +
-			"</div></td><td><div class='edit' name='qRemark' value=" + sharelink + ">" + data.recordList[i].qRemark +
+			"</div></td><td><div class='edit' name='qCount' qid=" + sharelink + ">" + data.recordList[i].qCount +
+			"</div></td><td><div class='edit' name='qRemark' qid=" + sharelink + ">" + data.recordList[i].qRemark +
 			"</div></td><td>" + "<a href='javascript:;' onclick='sharefun(\"" + sharelink + "\")'>分享</a> " +
 			"| <a href='javascript:;' onclick='tongjifun()'>统计</a> " +
 			"| <a href='javascript:;' onclick='deleteForm(this)' class='more'>删除</a>" +
@@ -76,7 +76,7 @@ function showData(data) {
 			this.style.textOverflow = "ellipsis";
 			if (htmlold != htmlnew) {
 				var postname = $(this).attr("name");
-				var qid = $(this).attr("value");
+				var qid = $(this).attr("qid");
 				var value = $(this).html();
 				if (confirm("确定要修改吗")) {
 					/*$.post("", {
