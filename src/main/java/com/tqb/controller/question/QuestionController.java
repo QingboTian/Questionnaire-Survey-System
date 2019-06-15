@@ -218,4 +218,12 @@ public class QuestionController {
 			data.setMsg("false");
 		return data;
 	}
+	
+	// 通过用户名进行问卷信息的修改
+	@ResponseBody
+	@RequestMapping("/ques/update")
+	public void update(String qid, String type, String value) {
+		System.out.println(qid + " " + type + " " + value);
+		service.update(qid, type, value);
+	}
 }

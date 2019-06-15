@@ -22,4 +22,6 @@ public interface QuestionService {
 	public String getNameById(String qid);
 
 	public boolean delete(String qid);
+
+	public void update(String qid, String type, String value);
 }

@@ -141,4 +141,17 @@ public class QuestionServiceImpl implements QuestionService {
 			return true;
 	}
 
+	@Override
+	public void update(String qid, String type, String value) {
+		Questionnaire ques = mapper.selectByPrimaryKey(qid);
+		if (type.equals("qName")){
+			ques.setqName(value);
+		}else if (type.equals("qCount")){
+			ques.setqCount(Integer.valueOf(value));
+		}else{// if (type.equals("qRemark"))
+			ques.setqRemark(value);
+		}
+		mapper.updateByPrimaryKey(ques);
+	}
+
 }
