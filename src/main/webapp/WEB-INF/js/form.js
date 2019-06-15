@@ -77,8 +77,7 @@ function clickEvent(obj) {
     i.innerHTML = ico[0].innerHTML;
     div.className="edit";
    
-    div.name="answerList["+count+"].answer["+num+"].caAnswer";
-    alert(1)
+    div.setAttribute("name", "answerList["+(count - 1)+"].answer["+num+"].caAnswer");
     div.innerHTML = "选项" + toChinese(lis.length + 1);
     area.appendChild(i);
     area.appendChild(div);
@@ -86,7 +85,6 @@ function clickEvent(obj) {
     if (lis.length < 5){
         ul[0].appendChild(li);
     }
-    $('.edit')[num].attr('name',"answerList["+count+"].answer["+num+"].caAnswer");
     editText();
 }
 //点击删除按钮
