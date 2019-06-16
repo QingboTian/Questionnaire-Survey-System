@@ -39,7 +39,7 @@
 	</mvc:interceptors>
 	
 	<!-- 全局异常处理器 -->
-	<bean id="quesException" class="com.tqb.exception.QuesException"/>
+	<!-- <bean id="quesException" class="com.tqb.exception.QuesException"/> -->
 
 	<!-- 配置静态资源 -->
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"></mvc:resources>

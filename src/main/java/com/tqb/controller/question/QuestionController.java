@@ -2,6 +2,8 @@ package com.tqb.controller.question;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +74,21 @@ public class QuestionController {
 		request.setAttribute("uid", uid);
 		return "index";
 	}*/
+	@RequestMapping("/questionnaire/add")
 	public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, QuesQueryVO vo) {
+		/*System.out.println(ques);
+		List<Conten> contentList = vo.getContentList();
+		for (Conten conten : contentList) {
+			System.out.println(conten.getcTitle());
+		}
+		List<ContentAnswerList> answerList = vo.getAnswerList();
+		for (ContentAnswerList c : answerList) {
+			List<ContentAnswer> answer = c.getAnswer();
+			for (ContentAnswer contentAnswer : answer) {
+				System.out.println(contentAnswer.getCaAnswer());
+			}
+		}*/
+		
 		User user = (User) session.getAttribute("user_state");
 		// 获得用户id
 		String uid = user.getuId();
@@ -80,19 +96,34 @@ public class QuestionController {
 		// 生成创建时间
 		LocalDateTime date = LocalDateTime.now();
 		ques.setqCreatedate(date.toString());
+		// 设置问卷开放时长
+		//Date endtime = (Date)request.getAttribute("endtime");
+		//System.out.println(endtime);
+		/*String[] s = endtime.split("-");*/
+		//Calendar end = Calendar.getInstance();
+
+		/*end.set(Integer.valueOf(s[0]), Integer.valueOf(s[1]), Integer.valueOf(s[3]));*/
+		/*end.setTime(endtime);*/
+		//Calendar now = Calendar.getInstance();
+		//now.set(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+
+		//int time = daysBetween(now, end);
+		ques.setqTime(100);
+
+		//System.out.println(time);
 		// 状态默认为true
 		ques.setqState(true);
 		// 提交数据
 		List<Conten> contentList = vo.getContentList();
 		List<ContentAnswerList> list = vo.getAnswerList();
-		
+
 		List<List<ContentAnswer>> answerList = new ArrayList<List<ContentAnswer>>();
-		
+
 		for (ContentAnswerList contentAnswerList : list) {
 			List<ContentAnswer> answer = contentAnswerList.getAnswer();
 			answerList.add(answer);
 		}
-		
+
 		service.add(ques, contentList, answerList);
 		// 添加数据成功后，跳转到首页
 		// 记得带参数 uid 当前页（非必须）
@@ -101,15 +132,28 @@ public class QuestionController {
 		return "index";
 	}
 
+	public int daysBetween(Calendar begin, Calendar end) {
+		Calendar calendar = (Calendar) begin.clone();
+		int daysbetween = 0;
+		while (calendar.before(end)) {
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+			daysbetween++;
+		}
+		return daysbetween;
+	}
+
 	/**
-	 * <p>Title: toQuesPage</p>  
-	 * <p>Description: 
-	 * 跳转到问卷页面
-	 * </p>  
+	 * <p>
+	 * Title: toQuesPage
+	 * </p>
+	 * <p>
+	 * Description: 跳转到问卷页面
+	 * </p>
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/questionnaire/make")
-	public String toQuesPage(String qid, Model model){
+	public String toQuesPage(String qid, Model model) {
 		String quesname = service.getNameById(qid);
 		model.addAttribute("qid", qid);
 		model.addAttribute("quesname", quesname);
@@ -117,8 +161,8 @@ public class QuestionController {
 	}
 
 	/**
-	 * 生成问卷的接口 这个接口不应该过滤 在过滤器中进行释放
-	 * 应该进行服务开与闭的判断
+	 * 生成问卷的接口 这个接口不应该过滤 在过滤器中进行释放 应该进行服务开与闭的判断
+	 * 
 	 * @param qid
 	 *            试卷id
 	 */
@@ -127,17 +171,17 @@ public class QuestionController {
 	public QuesAndContentAndAnswer testpapermaking(String qid) {
 		// 查看服务的开与闭
 		boolean b = service.isOpen(qid);
-		if(b) {
+		if (b) {
 			QuesAndContentAndAnswer qca = service.papermakeing(qid);
 			return qca;
 		}
 		return null;
 	}
-	
+
 	// 关闭或开启服务
 	@ResponseBody
 	@RequestMapping("/questionnaire/closeOropen")
-	public QuesResult closeOropen(String qid, Boolean state){
+	public QuesResult closeOropen(String qid, Boolean state) {
 		QuesResult res = new QuesResult();
 		if (state)
 			res.setMsg("true");
@@ -201,10 +245,10 @@ public class QuestionController {
 		answerList.add(list1);
 		answerList.add(list2);
 		answerList.add(list3);
-		//add(request, session, q, contentList, answerList);
+		// add(request, session, q, contentList, answerList);
 		System.out.println("ok");
 	}
-	
+
 	// TODO
 	// 通过用户名进行删除问卷
 	@ResponseBody
@@ -218,12 +262,17 @@ public class QuestionController {
 			data.setMsg("false");
 		return data;
 	}
-	
+
 	// 通过用户名进行问卷信息的修改
 	@ResponseBody
 	@RequestMapping("/ques/update")
 	public void update(String qid, String type, String value) {
 		System.out.println(qid + " " + type + " " + value);
 		service.update(qid, type, value);
+	}
+
+	@RequestMapping("/test")
+	public String to() {
+		return "MyJsp";
 	}
 }

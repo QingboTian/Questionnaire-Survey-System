@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 <div class="middle">
     <div id="info">
-        <form action="" method="post">
+        <form action="${pageContext.request.contextPath }/questionnaire/add" method="post">
             <fieldset>
                 <legend>创建表单</legend>
                 <div class="top">
@@ -41,7 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="bottom">
-                <button type="submit" class="submit">提交表单</button>
+                <button type="submit">提交表单</button>
+                <!-- <button type="submit" class="submit">提交表单</button> -->
             </div>
         </form>
     </div>

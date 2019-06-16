@@ -80,4 +80,5 @@ public class Questionnaire {
     public void setuId(String uId) {
         this.uId = uId == null ? null : uId.trim();
     }
+
 }
