@@ -3,7 +3,6 @@ package com.tqb.controller.question;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,7 @@ public class QuestionController {
 	@ResponseBody
 	@RequestMapping("/ques/list")
 	// 查询问卷列表
-	public PageBean<Questionnaire> list(String uid, Integer currentPage, HttpServletResponse response) {
+	public PageBean<Questionnaire> list(String uid, Integer currentPage, HttpServletResponse response, HttpSession session) {
 		if (currentPage == null)
 			currentPage = 1;
 		PageBean<Questionnaire> list = service.list(uid, currentPage, PAGE_SIZE);
@@ -74,8 +73,9 @@ public class QuestionController {
 		request.setAttribute("uid", uid);
 		return "index";
 	}*/
+	@ResponseBody
 	@RequestMapping("/questionnaire/add")
-	public String add(HttpServletRequest request, HttpSession session, Questionnaire ques, QuesQueryVO vo) {
+	public QuesResult add(HttpServletRequest request, HttpSession session, Questionnaire ques, QuesQueryVO vo) {
 		/*System.out.println(ques);
 		List<Conten> contentList = vo.getContentList();
 		for (Conten conten : contentList) {
@@ -89,47 +89,56 @@ public class QuestionController {
 			}
 		}*/
 		
-		User user = (User) session.getAttribute("user_state");
 		// 获得用户id
-		String uid = user.getuId();
-		ques.setuId(uid);
-		// 生成创建时间
-		LocalDateTime date = LocalDateTime.now();
-		ques.setqCreatedate(date.toString());
-		// 设置问卷开放时长
-		//Date endtime = (Date)request.getAttribute("endtime");
-		//System.out.println(endtime);
-		/*String[] s = endtime.split("-");*/
-		//Calendar end = Calendar.getInstance();
+		String uid;
+		QuesResult qr = new QuesResult<>();
+		try {
+			User user = (User) session.getAttribute("user_state");
+			uid = user.getuId();
+			ques.setuId(uid);
+			// 生成创建时间
+			LocalDateTime date = LocalDateTime.now();
+			ques.setqCreatedate(date.toString());
+			// 设置问卷开放时长
+			//Date endtime = (Date)request.getAttribute("endtime");
+			//System.out.println(endtime);
+			/*String[] s = endtime.split("-");*/
+			//Calendar end = Calendar.getInstance();
 
-		/*end.set(Integer.valueOf(s[0]), Integer.valueOf(s[1]), Integer.valueOf(s[3]));*/
-		/*end.setTime(endtime);*/
-		//Calendar now = Calendar.getInstance();
-		//now.set(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+			/*end.set(Integer.valueOf(s[0]), Integer.valueOf(s[1]), Integer.valueOf(s[3]));*/
+			/*end.setTime(endtime);*/
+			//Calendar now = Calendar.getInstance();
+			//now.set(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
 
-		//int time = daysBetween(now, end);
-		ques.setqTime(100);
+			//int time = daysBetween(now, end);
+			ques.setqTime(100);
 
-		//System.out.println(time);
-		// 状态默认为true
-		ques.setqState(true);
-		// 提交数据
-		List<Conten> contentList = vo.getContentList();
-		List<ContentAnswerList> list = vo.getAnswerList();
+			//System.out.println(time);
+			// 状态默认为true
+			ques.setqState(true);
+			// 提交数据
+			List<Conten> contentList = vo.getContentList();
+			List<ContentAnswerList> list = vo.getAnswerList();
 
-		List<List<ContentAnswer>> answerList = new ArrayList<List<ContentAnswer>>();
+			List<List<ContentAnswer>> answerList = new ArrayList<List<ContentAnswer>>();
 
-		for (ContentAnswerList contentAnswerList : list) {
-			List<ContentAnswer> answer = contentAnswerList.getAnswer();
-			answerList.add(answer);
+			for (ContentAnswerList contentAnswerList : list) {
+				List<ContentAnswer> answer = contentAnswerList.getAnswer();
+				answerList.add(answer);
+			}
+
+			service.add(ques, contentList, answerList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			qr.setMsg("error");
+			return qr;
 		}
-
-		service.add(ques, contentList, answerList);
 		// 添加数据成功后，跳转到首页
 		// 记得带参数 uid 当前页（非必须）
 		request.setAttribute("currentPage", 1);
 		request.setAttribute("uid", uid);
-		return "index";
+		qr.setMsg("success");
+		return qr;
 	}
 
 	public int daysBetween(Calendar begin, Calendar end) {
@@ -246,7 +255,6 @@ public class QuestionController {
 		answerList.add(list2);
 		answerList.add(list3);
 		// add(request, session, q, contentList, answerList);
-		System.out.println("ok");
 	}
 
 	// TODO
@@ -267,12 +275,12 @@ public class QuestionController {
 	@ResponseBody
 	@RequestMapping("/ques/update")
 	public void update(String qid, String type, String value) {
-		System.out.println(qid + " " + type + " " + value);
 		service.update(qid, type, value);
 	}
-
-	@RequestMapping("/test")
-	public String to() {
-		return "MyJsp";
+	
+	@RequestMapping("/to/index")
+	public String index() {
+		System.out.println("index");
+		return "index";
 	}
 }

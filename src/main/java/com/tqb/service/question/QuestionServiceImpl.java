@@ -59,18 +59,15 @@ public class QuestionServiceImpl implements QuestionService {
 	public void add(Questionnaire ques, List<Conten> contentList, List<List<ContentAnswer>> answerList) {
 		// 生成uuid
 		String qid = CommonUtils.uuid();
-		System.out.println(qid);
 		ques.setqId(qid);
 		// 添加问卷信息
 		mapper.insert(ques);
-		System.out.println(ques.getqId());
 		// 添加问题信息 主键返回
 		int count = 0;// 用于判断题目与答案的对应关系
 		for (Conten c : contentList) {
 			c.setqId(qid);
 			contentMapper.insert(c);
 			Integer c_id = c.getcId();
-			System.out.println("cid :" + c_id);
 			List<ContentAnswer> list = answerList.get(count);
 			for (ContentAnswer ca : list) {
 				ca.setcId(c_id);
