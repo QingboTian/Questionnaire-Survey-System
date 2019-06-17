@@ -90,7 +90,7 @@ public class QuestionController {
 		}*/
 		
 		// 获得用户id
-		String uid;
+		String uid = null;
 		QuesResult qr = new QuesResult<>();
 		try {
 			User user = (User) session.getAttribute("user_state");
@@ -278,9 +278,8 @@ public class QuestionController {
 		service.update(qid, type, value);
 	}
 	
-	@RequestMapping("/to/index")
+	@RequestMapping("/ques/index")
 	public String index() {
-		System.out.println("index");
 		return "index";
 	}
 }

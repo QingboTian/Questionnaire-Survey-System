@@ -20,6 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
     <link rel="stylesheet" type="text/css" href="css/newform.css">
+   <style>
+        [contentEditable=true]:empty:not(:focus)::before{
+            content:attr(data-ph)
+        }
+    </style>
   </head>
   
   <body>
@@ -43,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="bottom">
                 <!-- <button type="submit">提交表单</button> -->
-                <button type="submit" class="submit">提交表单</button>
+                <input type="button" class="submit" value="提交表单"></input>
             </div>
         </form>
     </div>

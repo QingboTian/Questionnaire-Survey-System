@@ -40,18 +40,18 @@ function addSingle(ico) {
 	var piece = document.createElement("div");
 	piece.className = "piece";
 	piece.innerHTML = '<div class="content">' +
-		'<span class="num"></span><div class="edit title_area" name="contentList[' + count + '].cTitle">请输入问题</div>' +
-		'<div class="handle">' +
-		'<a href="javascript:;" class="increase" onclick=\'clickEvent(this)\'></a>' +
-		'<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>' +
-		'<ul><li><div class="li_area"><i>' + ico + '</i>' +
-		'<div class="edit" name="answerList[' + count + '].answer[0].caAnswer">选项一</div></div>' +
-		'</li>' +
-		'<li><div class="li_area"><i>' + ico + '</i>' +
-		'<div class="edit"  name="answerList[' + count + '].answer[1].caAnswer">选项二</div></div>' +
-		'</li>' +
-		'</ul>' +
-		'</div>';
+	'<span class="num"></span><div data-ph="请输入问题" class="edit title_area" name="contentList['+count+'].cTitle"></div>' +
+	'<div class="handle">' +
+	'<a href="javascript:;" class="increase" onclick=\'clickEvent(this)\'></a>' +
+	'<a href="javascript:;" class="delete" onclick=\'deletePiece(this)\'></a></div>' +
+	'<ul><li><div class="li_area"><i>' + ico + '</i>' +
+	'<div class="edit" data-ph="选项一" name="answerList['+count+'].answer[0].caAnswer"></div></div>' +
+	'</li>' +
+	'<li><div class="li_area"><i>' + ico + '</i>' +
+	'<div class="edit" data-ph="选项二"  name="answerList['+count+'].answer[1].caAnswer"></div></div>' +
+	'</li>' +
+	'</ul>' +
+	'</div>';
 	count++;
 	var selected = document.getElementById("selected");
 	var li = selected.getElementsByTagName("li");
@@ -78,6 +78,7 @@ function clickEvent(obj) {
 	div.className = "edit";
 
 	div.setAttribute("name", "answerList[" + (count - 1) + "].answer[" + num + "].caAnswer");
+	div.setAttribute("data-ph","选项" + toChinese(lis.length + 1));
 	div.innerHTML = "选项" + toChinese(lis.length + 1);
 	area.appendChild(i);
 	area.appendChild(div);
@@ -178,8 +179,7 @@ $(".submit").click(function() {
 		data : obj,
 		success : function(data) {
 			if (data.msg == "success"){
-				/*alert(data.msg)*/
-				window.location.href = "to/index";
+				window.location.href = "ques/index";
 			}else{
 				alert("问卷创建失败，请仔细检查问卷是否添加完整！");
 			}
