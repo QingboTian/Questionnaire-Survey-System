@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ import com.tqb.utils.PageBean;
 public class QuestionController {
 	
 	// 页大小
-	//@Value("${PAGE_SIZE}")
-	private Integer PAGE_SIZE = 10;
+	@Value("${PAGE_SIZE}")
+	private Integer PAGE_SIZE;
 
 	@Autowired
 	private QuestionService service;

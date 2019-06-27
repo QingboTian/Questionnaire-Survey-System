@@ -37,6 +37,7 @@ com\tqb\pojo\ContenExample$Criterion.class
 com\tqb\pojo\SubmitContentExample$GeneratedCriteria.class
 com\tqb\utils\JsonUtils.class
 com\tqb\interfaces\login\RegistryService.class
+com\tqb\controller\login\FindPwdController.class
 com\tqb\pojo\ContentAnswerExample$GeneratedCriteria.class
 com\tqb\pojo\ContentExample$Criteria.class
 com\tqb\pojo\result\QuesResult.class

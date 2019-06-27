@@ -2,6 +2,7 @@ D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\UserExample.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\ContentExample.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\interfaces\question\QuestionService.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\pojo\queryVO\QuesQueryVO.java
+D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\controller\login\FindPwdController.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\utils\JsonUtils.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\service\question\QuestionServiceImpl.java
 D:\MyEclips2017Workspace\ques-sys\src\main\java\com\tqb\interceptor\login\LoginInterceptor.java

@@ -22,37 +22,41 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String login = "/ques-sys/";
 		String register = "register";
 		String forget = "forget";
+		String sendMsg = "ques/sendMsg";
+		String findPasswd = "ques/findPasswd";
 		// 登录按钮
-		String login_button = "/ques-sys/login";
-		
-		if (request.getRequestURI().contains(papermaking) || 
-				request.getRequestURI().contains(submit) || request.getRequestURI().contains(showdata))
+		String login_button = "ques-sys/login";
+
+		if (request.getRequestURI().contains(papermaking) || request.getRequestURI().contains(submit)
+				|| request.getRequestURI().contains(showdata) || request.getRequestURI().contains(sendMsg))
 			return true;
-		
+
+		if (request.getRequestURI().contains(findPasswd))
+			return true;
 		// 注册页面
-		if (request.getRequestURI().contains(register)){
+		if (request.getRequestURI().contains(register)) {
 			return true;
 		}
-		
-		if (request.getRequestURI().contains(forget)){
+
+		if (request.getRequestURI().contains(forget)) {
 			return true;
 		}
 		// 登录页面不需要过滤 直接通过
-		if (request.getRequestURI().equals(login)){
+		if (request.getRequestURI().equals(login)) {
 			return true;
 		}
 		// 登录按钮请求的通过
-		if (request.getRequestURI().equals(login_button)){
+		if (request.getRequestURI().equals(login_button)) {
 			return true;
 		}
-		
+
 		// 进行用户状态的判断
 		User user = (User) request.getSession().getAttribute("user_state");
-		if (user != null){
+		if (user != null) {
 			// 用户登录
 			return true;
 		}
-		
+
 		// 用户未登录 跳转到登录页面
 		request.setAttribute("error", "您当前未登录，请登录后再进行访问！");
 		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);

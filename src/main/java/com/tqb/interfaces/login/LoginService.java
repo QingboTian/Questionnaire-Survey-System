@@ -8,4 +8,10 @@ public interface LoginService {
 
 	User exist(String username) throws UserException;
 
+	void updatePwd(String type, String msg, String pwd);
+
+	boolean findByPhone(String phone);
+
+	boolean findByMail(String mail);
+
 }
